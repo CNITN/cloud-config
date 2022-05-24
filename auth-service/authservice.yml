@@ -1,0 +1,108 @@
+server:
+  port: 8770
+
+spring:
+  application:
+    name: authservice
+  rabbitmq:
+    host: localhost
+    password: guest
+    port: 15672
+    username: guest
+    notifexchange: notif.exchange
+    logexchange: log.exchange
+    logqueue: log.queue
+    passwordresetconfirmationqueue: passwordresetconfirmation.queue
+    enablenotifqueue: enablenotif.queue
+    createnotificationmemberqueue: notificationmember.queue
+    passwordresetqueue: passwordreset.queue
+    logroutingkey: log.routingkey
+    enablenotifroutingkey: enablenotif.routingkey
+    passwordresetroutingkey: passwordreset.routingkey
+    createnotificationmemberroutingkey: notificationmember.routingkey
+    passwordresetconfirmationroutingkey: passwordresetroutingkey.routingkey
+
+authentication:
+  tokenSecret: random913string663written123bywalid99946totest1231this
+  tokenExpirationMsec: 600000 #10 minutes
+  refreshTokenExpirationMsec: 604800000 #7 days
+  accessTokenCookieName: accessToken
+  refreshTokenCookieName: refreshToken
+  jwtIssuer: esprit.tn
+  secureTokenValidity: 1800
+
+
+zuul:
+  sensitive-headers:
+  prefix: /api/v1
+  ignored-services: '*'
+  host:
+    max-total-connections: 1000
+    max-per-route-connections: 1000
+    connect-timeout-millis: 1000000
+    socket-timeout-millis: 1000000
+  routes:
+    rdi-service:
+      path: /rdi/**
+      serviceId: rdiservice
+      stripPrefix: false
+    formation-service:
+      path: /formation/**
+      serviceId: serviceformation
+      stripPrefix: false
+    encadrement-service:
+      path: /encadrement/**
+      serviceId: serviceencadrement
+      stripPrefix: false
+    enseignant-service:
+      path: /enseignant/**
+      serviceId: SERVICEENSEIGNANT
+      stripPrefix: false
+    etudiant-service:
+      path: /etudiant/**
+      serviceId: serviceetudiant
+      stripPrefix: false
+    service-service:
+      sensitiveHeaders:
+      path: /service/**
+      serviceId: servicesservice
+      stripPrefix: false
+    pedagogique-service:
+      path: /pedagogique/**
+      serviceId: pedagogiqueservice
+      stripPrefix: false
+    fileupload-service:
+      path: /file/**
+      serviceId: fileuploadservice
+      stripPrefix: false
+    calendrier-service:
+      path: /calendrier/**
+      serviceId: calendrierservice
+      stripPrefix: false
+    statistique-service:
+      path: /statistique/**
+      serviceId: servicestatistique
+      stripPrefix: false
+    notification-service:
+      path: /notification/**
+      serviceId: NOTIFICATIONSERVICE
+      stripPrefix: false
+    performance-service:
+      path: /performance/**
+      serviceId: PERFORMANCESERVICE
+      stripPrefix: false
+    log-service:
+      path: /log/**
+      serviceId: LOGSERVICE
+      stripPrefix: false
+ribbon:
+  eureka:
+    enabled: false
+
+hystrix:
+  command:
+    rdi-service:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 10000000
