@@ -42,10 +42,3 @@ ribbon:
   eureka:
     enabled: false
 
-hystrix:
-  command:
-    rdi-service:
-      execution:
-        isolation:
-          thread:
-            timeoutInMilliseconds: 10000000
